@@ -14,7 +14,7 @@ To generate a dataset, set parameters in `main()` function and run:
 python generate_data_geometric.py
 ```
 Not that this code can be lengthy to run for high dimensional cases. We also provide faster matlab code, however this requires that you have Matlab and the Matlab Python SDK installed.
-We proved a (zipped) dataset for the setting of `M=5`.
+We provided a (zipped) dataset for the setting of `M=5`.
 
 ## Training a model
 To train a model run:
@@ -23,6 +23,7 @@ python run_mape_batched.py 5 128
 ```
 
 This will train a model for `M=5` with `128` channels per layer. It will either load in the existing dataset if it's present, or generate the dataset.
+We have provided this dataset in the `processed` directory.
 
 ## Running benchmarks
 
