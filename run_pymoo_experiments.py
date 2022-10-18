@@ -35,10 +35,10 @@ def transform(x, ref_point, do_normalize=True):
 if __name__ == "__main__":
     repetitions = 5
     # set what experiments you want to run.
-    run_pareto = False # Generate example Pareto Fronts for each problem
-    run_baseline = False
+    run_pareto = True # Generate example Pareto Fronts for each problem
+    run_baseline = True
     run_deephv = True
-    run_nsga = False
+    run_nsga = True
     n_generations = 10
     problems = ['dtlz1', 'dtlz2', 'convex_dtlz2', 'dtlz5', 'dtlz7']#, 'wfg1', 'wfg2', 'wfg3']
     dims = [3,4,5,6,7,8,9,10]
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     pareto_front_partitions = {3:13, 4:7, 5:5, 6:4, 7:3, 8:3, 9:3, 10:3}
     path = os.getcwd()
     model_path = os.path.join(path, 'models')
-    save_path = 'pymoo_results_deephv_pretzel128/'
+    save_path = 'pymoo_results/'
 
     # Run Pareto front generation
     if run_pareto:

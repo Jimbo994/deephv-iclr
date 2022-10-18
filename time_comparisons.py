@@ -7,7 +7,6 @@ import os
 import time
 import numpy as np
 
-
 def transform(x, ref_point, ):
     """
     :param x:
