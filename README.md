@@ -26,6 +26,7 @@ This will train a model for `M=5` with `128` channels per layer. It will either 
 We have provided this dataset in the `processed` directory.
 
 ## Running benchmarks
+We provide a number of trained models in the `models` directory.
 
 ### Evolutionary algorithm benchmarks
 To run the Evolutionary algorithm benchmarks, check the settings to select a model, problems, and dimensions and `run_pymoo_experiments.py` and run by:
