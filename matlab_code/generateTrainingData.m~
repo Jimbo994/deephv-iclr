@@ -1,0 +1,24 @@
+function Data = generateTrainingData(M,Data,data_num,dataset_num,seed)
+% 这个函数是在PF上采样来构造solution set，
+    rng(seed);    
+    for i=1:dataset_num
+        num = ceil(data_num*rand);
+        p = rand*1.5+0.5; % p是用来控制PF
+        %[Data(:,:,i),data_num] = UniformVector(data_num, Global.M);
+        temp = abs(UniformSphere_ExponentioalPowerDistribution(num,ones(1,M)*p,1));
+        if i<=dataset_num/2
+            %temp = temp*(-1)+1;
+            Data(i,1:num,:) = temp';
+        else
+            temp = temp*(-1)+1;
+            Data(i,1:num,:) = temp';
+        end
+        %HVC(:,i) = CalHVC(Data(:,:,i),r,data_num);  
+    end  
+    
+%     for i=1:dataset_num
+%         P = UniformVector(data_num,2);
+%         P = [P(:,ones(1,Global.M-2)),P];
+%         Data(:,:,i) = P./sqrt(2).^repmat([Global.M-2,Global.M-2:-1:0],size(P,1),1);
+%     end      
+end

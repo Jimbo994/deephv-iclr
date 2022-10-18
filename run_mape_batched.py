@@ -17,14 +17,18 @@ import sys
 pytorch_lightning.seed_everything(42)
 
 def main():
-    dim = int(sys.argv[1])
-    inp_channels = int(sys.argv[2])
+    if len(sys.argv) == 1:
+        dim = 4
+        inp_channels = 128
+    else:
+        dim = int(sys.argv[1])
+        inp_channels = int(sys.argv[2])
+
     path = os.getcwd()
-    print(dim, inp_channels, type(dim))
+    #print(dim, inp_channels, type(dim))
     # always check what is in the HV code
-    dataset = HV_dataset_uniform(root=path,
-                              dataset_name='data_uniform' +str(dim) + '_100_padded_' + str(dim) + '_N100.pt',
-                                 num_dim=5, max_x=100).shuffle()
+    dataset = HV_dataset_uniform(path, 'data_uniform5_100_padded_10_N100.pt', num_dim=5, max_y=100, max_dim = 10,
+                                 num_datapoints = 1000000, padding=True, sample_mode='uniform', matlab=False).shuffle()
 
     dataset.data.x = dataset.data.x.nan_to_num(0.)
     # shuffle dataset and get train/validation/test splits
@@ -46,15 +50,15 @@ def main():
     model = DoubleDeepSetModelBatched(lr=1e-4, input_channels=inp_channels, loss='mape', num_dim=dim)
     #model = model.load_from_checkpoint(modelpath)
 
-    wandb.init(project='DoubleDeepsetsBatched', name='mape_dim' +str(dim) + '_' + str(inp_channels))
-    wandb_logger = WandbLogger(project='DoubleDeepsetsBatched', name='mape_dim' +str(dim) + '_' + str(inp_channels),
-                             log_model='all') # log all new checkpoints during training
+    # wandb.init(project='DoubleDeepsetsBatched', name='mape_dim' +str(dim) + '_' + str(inp_channels))
+    # wandb_logger = WandbLogger(project='DoubleDeepsetsBatched', name='mape_dim' +str(dim) + '_' + str(inp_channels),
+    #                          log_model='all') # log all new checkpoints during training
 
     checkpoint_callback = ModelCheckpoint(monitor='val_loss', mode='min')
 
     trainer = Trainer(
         accelerator="gpu", devices=1,           # train on GPU
-        logger=wandb_logger,                    # W&B integration
+        # logger=wandb_logger,                    # W&B integration
         callbacks=[checkpoint_callback],        # our model checkpoint callback
         max_epochs=200)
 

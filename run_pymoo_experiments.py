@@ -19,6 +19,7 @@ import os
 
 def transform(x, ref_point, do_normalize=True):
     """
+    Transforms problem from minimization to maximization and vice versa.
     :param x:
     :param ref_point:
     :return:
@@ -29,15 +30,12 @@ def transform(x, ref_point, do_normalize=True):
 
     # Check if any points are worse than ref points and remove them.
     mask = np.any(x.numpy(), where=x.numpy() < 0, axis=1)
-    #print(mask.sum())
-    #if normalize:
-    #    x = unnormalize(x, torch.stack([min, max]))
     return x[~mask]
 
 if __name__ == "__main__":
     repetitions = 5
     # set what experiments you want to run.
-    run_pareto = False
+    run_pareto = False # Generate example Pareto Fronts for each problem
     run_baseline = False
     run_deephv = True
     run_nsga = False
@@ -45,7 +43,7 @@ if __name__ == "__main__":
     problems = ['dtlz1', 'dtlz2', 'convex_dtlz2', 'dtlz5', 'dtlz7']#, 'wfg1', 'wfg2', 'wfg3']
     dims = [3,4,5,6,7,8,9,10]
     channels = ['allpretzel', 'all', 128, 256]
-    #modes = ['normal', 'all']
+    # modes = ['normal', 'all']
     # Partitions required to roughly pick at least 100 points on Pareto front, typically more though
     pareto_front_partitions = {3:13, 4:7, 5:5, 6:4, 7:3, 8:3, 9:3, 10:3}
     path = os.getcwd()
