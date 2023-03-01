@@ -59,7 +59,6 @@ class DoubleDeepSetLayerWithChannels(nn.Module):
 
     def __init__(self, input_channels, output_channels):
         super().__init__()
-        # weights should have dimensions 5xIinxIout
         weights = torch.Tensor(4, input_channels, output_channels)
         self.weights = nn.Parameter(weights)
         bias = torch.Tensor(1, output_channels)
@@ -102,7 +101,6 @@ class DoubleDeepSetLayerWithChannelsBatched(nn.Module):
 
     def __init__(self, input_channels, output_channels, do_mask=True):
         super().__init__()
-        # weights should have dimensions 5xIinxIout
         weights = torch.Tensor(4, input_channels, output_channels)
         self.weights = nn.Parameter(weights)
         bias = torch.Tensor(1, output_channels)
